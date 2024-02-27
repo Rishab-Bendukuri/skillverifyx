@@ -1,10 +1,8 @@
-import React, {useState} from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import DefaultPage from './components/DefaultPage/DefaultPage';
-import Navbar from './components/NavBar/NavBar';
-import SignUpPage from './components/AuthenticationPage/SignUpPage';
-import LoginPage from './components/AuthenticationPage/LoginPage';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import LoginPage from "./components/AuthenticationPage/LoginPage"
 import HomePage from './components/HomePage/HomePage';
+import Navbar from './components/NavBar/NavBar';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -33,10 +31,10 @@ const App = () => {
 
   return (
     <Router>
-      <Navbar isLoggedIn={isLoggedIn} onLogout={handleLogout}/>
+      <Navbar isLoggedIn={isLoggedIn} onLogout={handleLogout} />
       <Routes>
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/home" element={isLoggedIn ? <HomePage /> : <Navigate to="/login" />} />
+        <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
         {/* Add more routes as needed */}
       </Routes>
     </Router>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './DefaultPage.css'; // Import the CSS file for styling
+import './DefaultPage.css'; 
 
 const DefaultPage = () => {
   const navigate = useNavigate();

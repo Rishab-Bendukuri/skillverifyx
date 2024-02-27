@@ -1,9 +1,8 @@
-// LoginPage.jsx
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './LoginPage.css'; // Import CSS file for styling
 
-const LoginPage = ({ setIsLoggedIn }) => {
+const LoginPage = ({ onLogin }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
@@ -18,33 +17,29 @@ const LoginPage = ({ setIsLoggedIn }) => {
 
   const handleLogin = (event) => {
     event.preventDefault();
-    // Perform login logic here, e.g., validate credentials
-    // For demonstration, let's assume successful login if email and password are not empty
     if (!formData.email || !formData.password) {
       setError('Email and password are required.');
     } else {
-      // Reset error message
       setError('');
-      // Set isLoggedIn state to true
-      setIsLoggedIn(true);
-      // Navigate to the home page
-      navigate('/home');
+      const token = 'dummy_token'; // Replace with actual token from API response
+      onLogin(token);
+      navigate('/home'); // Navigate to home page after successful login
     }
   };
 
   return (
-    <div>
+    <div className="login-container">
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
-        <div>
+        <div className="form-group">
           <label htmlFor="email">Email:</label>
           <input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="password">Password:</label>
           <input type="password" id="password" name="password" value={formData.password} onChange={handleInputChange} />
         </div>
-        {error && <div>{error}</div>}
+        {error && <div className="error-message">{error}</div>}
         <button type="submit">Login</button>
       </form>
     </div>
