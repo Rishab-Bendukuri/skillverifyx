@@ -1,35 +1,51 @@
-// SignUpPage.jsx
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './SignUpPage.css'; // Import the CSS file for styling
-
+import './SignUpPage.css'; 
+import {createUserWithEmailAndPassword} from "firebase/auth";
+import {collection, getDocs, addDoc, doc, setDoc} from "firebase/firestore";
+import {auth, db} from "/media/rishabssj/SN5701/Skillverify/skillverifyx/src/api/firebase-config.js";
 const SignUpPage = () => {
   const navigate = useNavigate();
+  const [docRef, setDocRef] = useState()
+  const usersCollectionRef = collection(db, "/users");
+  const [uid, setUid] = useState()
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: ''
   });
   const [error, setError] = useState('');
+  const [user, setUser] = useState();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
-    // For demonstration, checking if username, email, and password are not empty
     if (!formData.username || !formData.email || !formData.password) {
       setError('Username, email, and password are required.');
     } else {
-      // Reset error message
       setError('');
-      // Perform signup logic, e.g., send data to server
+      try{
+        await createUserWithEmailAndPassword(
+          auth,
+          formData.email,
+          formData.password
+        ).then(cred => {
+          const smt = cred.user.uid;
+          setDoc(doc(db, 'users', smt), {name : formData.username, email : formData.email, role : "test"})
+
+        })
+        }
+        catch(error){
+          console.log(error);
+        }
+      console.log(user);
+      
       console.log('Signup form submitted with data:', formData);
-      // Navigate to another page after successful signup
-      navigate('/dashboard');
+      navigate('/login');
     }
   };
 
@@ -38,7 +54,7 @@ const SignUpPage = () => {
       <h2>Sign Up</h2>
       <form className="signup-form" onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="username">Name:</label>
           <input type="text" id="username" name="username" value={formData.username} onChange={handleInputChange} />
         </div>
         <div>

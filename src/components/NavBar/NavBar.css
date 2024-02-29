@@ -1,52 +1,49 @@
-/* Navbar.css */
-
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #2c3136;
-    color: #fff;
-    padding: 10px 20px;
-  }
-  
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .nav-links {
-    list-style: none;
-    display: flex;
-  }
-  
-  .nav-links li {
-    margin-right: 20px;
-  }
-  
-  .nav-links li:last-child {
-    margin-right: 0;
-  }
-  
-  .nav-links li a {
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  .nav-links li a:hover {
-    text-decoration: underline;
-  }
-  
-  .nav-links button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #dc3545;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .nav-links button:hover {
-    background-color: #c82333;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2c3136;
+  color: #fff;
+  padding: 10px 20px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+}
+
+.nav-links li {
+  margin-right: 20px;
+}
+
+.nav-links li:last-child {
+  margin-right: 0;
+}
+
+.nav-links li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-links li a:hover {
+  text-decoration: underline;
+}
+
+.nav-links button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #dc3545;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-links button:hover {
+  background-color: #c82333;
+}
