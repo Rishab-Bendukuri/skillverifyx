@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './CreateUser.css';
 import { collection, getDocs, addDoc } from "firebase/firestore";
-import { db } from "/media/rishabssj/SN5701/Skillverify/skillverifyx/src/api/firebase-config.js";
+import { db } from '../../api/firebase-config';
 
 const CreateUser = () => {
   const usersCollectionRef = collection(db, "/users");

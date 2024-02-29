@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-// import {db} from "./api/firebase-config";
 import LoginPage from "./components/AuthenticationPage/LoginPage"
 import HomePage from './components/HomePage/HomePage';
 import SignUpPage from "./components/AuthenticationPage/SignUpPage"
 import Navbar from './components/NavBar/NavBar';
 import ViewUsers from './components/ViewUsers/ViewUsers';
-// import {collection, getDocs} from "firebase/firestore";
 import CreateUser from './components/CreateUser/CreateUser';
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "/media/rishabssj/SN5701/Skillverify/skillverifyx/src/api/firebase-config.js";
+import { auth } from './api/firebase-config';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

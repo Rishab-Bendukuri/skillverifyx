@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './SignUpPage.css'; 
 import {createUserWithEmailAndPassword} from "firebase/auth";
 import {collection, getDocs, addDoc, doc, setDoc} from "firebase/firestore";
-import {auth, db} from "/media/rishabssj/SN5701/Skillverify/skillverifyx/src/api/firebase-config.js";
+import {auth, db} from '../../api/firebase-config';
 const SignUpPage = () => {
   const navigate = useNavigate();
   const [docRef, setDocRef] = useState()

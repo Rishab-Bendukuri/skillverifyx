@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 import {onAuthStateChanged, signInWithEmailAndPassword} from "firebase/auth";
-import {auth} from "/media/rishabssj/SN5701/Skillverify/skillverifyx/src/api/firebase-config.js";
+import {auth} from '../../api/firebase-config';
 
 const LoginPage = ({ onLogin, setUser, user }) => {
   const navigate = useNavigate();
