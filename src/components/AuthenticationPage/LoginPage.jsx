@@ -14,6 +14,9 @@ const LoginPage = ({ onLogin, setUser, user }) => {
   const [error, setError] = useState('');
 
   onAuthStateChanged(auth, (currentUser) => {
+    localStorage.setItem('user', JSON.stringify(currentUser));
+;
+    console.log(currentUser);
     setUser(currentUser);
   })
 

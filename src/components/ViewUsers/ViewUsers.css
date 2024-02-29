@@ -1,0 +1,47 @@
+.view-users-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .user-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .user-card {
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: calc(33% - 20px); /* Adjust width for 3 columns */
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .user-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .user-card .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+  }
+  
+  .user-card .card-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .user-card .card-text {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+  
+  .user-card .btn-primary {
+    width: 100%;
+  }
+  
