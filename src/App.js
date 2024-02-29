@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+// import {db} from "./api/firebase-config";
+import LoginPage from "./components/AuthenticationPage/LoginPage"
+import HomePage from './components/HomePage/HomePage';
+import SignUpPage from "./components/AuthenticationPage/SignUpPage"
+import Navbar from './components/NavBar/NavBar';
+import ViewUsers from './components/ViewUsers/ViewUsers';
+// import {collection, getDocs} from "firebase/firestore";
+import CreateUser from './components/CreateUser/CreateUser';
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "/media/rishabssj/SN5701/Skillverify/skillverifyx/src/api/firebase-config.js";
 
-function App() {
+const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem('authToken');
+    if (storedToken) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const handleLogin = (token) => {
+    localStorage.setItem('authToken', token);
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    localStorage.removeItem('authToken');
+    setIsLoggedIn(false);
+    return <Navigate to="/login" />;
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+      <Routes>
+        <Route path="/home" element={isLoggedIn ? <HomePage user={user} /> : <Navigate to="/login" />} />
+        <Route path="/login" element={<LoginPage onLogin={handleLogin} setUser={setUser} user={user} />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/users" element={<ViewUsers />} />
+        <Route path="/createuser" element={<CreateUser />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;

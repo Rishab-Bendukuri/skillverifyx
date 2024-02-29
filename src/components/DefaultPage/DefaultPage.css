@@ -1,0 +1,37 @@
+.default-page-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 100px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.default-page-container h1 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.default-page-container p {
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.default-page-container button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.default-page-container button:hover {
+  background-color: #0056b3;
+}
