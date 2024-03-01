@@ -9,7 +9,7 @@ entry.use(cors({ origin: 'http://localhost:3000' })); // Allow requests from loc
 
 
 async function connectDB(){
-    var client = await mclient.connect("mongodb+srv://rinku:Rinku%402002@cluster0.u9rsl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+    var client = await mclient.connect("mongodb://localhost:27017")
     var dbObj=client.db("major");
     var users=dbObj.collection("users");
     entry.set("users",users);
