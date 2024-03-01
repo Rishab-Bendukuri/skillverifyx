@@ -28,7 +28,7 @@ users.post(
           password: await bcryptjs.hash(request.body.password, 4)
         })
         if(inserted.acknowledged){
-          await AppUsers.createUser(inserted.insertedId.toString(), { from: "0xBC7B4B86C3EdA2E67767e19D8376Ff7D0ac5B119" })
+          await AppUsers.createUser(inserted.insertedId.toString(), { from: "0x67eA39E9B4EA99978E96359d8035085Fd50e5406" })
           response.send("Created!")
         }
         else{
@@ -44,7 +44,7 @@ users.get(
     const AppcontractsUsers = TruffleContract(require('../build/contracts/Users.json'));
     AppcontractsUsers.setProvider(web3.currentProvider);
     const AppUsers = await AppcontractsUsers.deployed();
-    const returnValue = await AppUsers.getUser.call(request.params.id,{ from: "0xBC7B4B86C3EdA2E67767e19D8376Ff7D0ac5B119" });
+    const returnValue = await AppUsers.getUser.call(request.params.id,{ from: "0x67eA39E9B4EA99978E96359d8035085Fd50e5406" });
     response.send(returnValue);
   })
 );
@@ -69,7 +69,7 @@ users.post(
   expressAsyncHandler(async (request, response) => {
     const userDetails = await (await request.app.get("users")).findOne({name: request.body.name})
     if(await bcryptjs.compare(request.body.password, userDetails.password)){
-      response.send({token: jwt.sign({userId: userDetails._id.toString()}, 'secret', {expiresIn: 1000000})})
+      response.send({token: jwt.sign({userId: userDetails._id.toString()}, 'secret', {expiresIn: 1000000}), user: {name:request.body.name, userId: userDetails._id.toString()}})
     } else{
       response.send("Invalid credentials!")
     }

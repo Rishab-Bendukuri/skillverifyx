@@ -37,14 +37,16 @@ const ViewUsers = () => {
         />
       </Form.Group>
       <div className="user-cards">
-        {filteredUsers.map((user) => (
-          <Card className="user-card" key={user.id}>
+        {filteredUsers.map((user, index) => (
+          <div key={index} className="col-lg-3 col-md-6 mb-4">
+          <Card className="custom-card">
             <Card.Body>
               <Card.Title>{user.name}</Card.Title>
               <Card.Text>Email: {user.email}</Card.Text>
               <Button variant="primary">Endorse</Button>
             </Card.Body>
           </Card>
+        </div>
         ))}
       </div>
     </div>

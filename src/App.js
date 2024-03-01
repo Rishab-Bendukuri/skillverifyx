@@ -9,6 +9,8 @@ import CreateUser from './components/CreateUser/CreateUser';
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from './api/firebase-config';
 import NewSkills from './components/NewSkills';
+import axios from 'axios';
+import Notification from './components/Notifications';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -38,6 +40,7 @@ const App = () => {
 
   return (
     <>
+    
       <Navbar isLoggedIn={isLoggedIn} onLogout={handleLogout} />
       <Routes>
         <Route path="/home" element={<HomePage  />} />

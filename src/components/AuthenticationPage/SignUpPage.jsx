@@ -1,73 +1,80 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './SignUpPage.css'; 
-import {createUserWithEmailAndPassword} from "firebase/auth";
-import {collection, getDocs, addDoc, doc, setDoc} from "firebase/firestore";
-import {auth, db} from '../../api/firebase-config';
+import './SignUpPage.css';
+import axios from 'axios';
+import Notification from '../Notifications';
+
 const SignUpPage = () => {
   const navigate = useNavigate();
-  const [docRef, setDocRef] = useState()
-  const usersCollectionRef = collection(db, "/users");
-  const [uid, setUid] = useState()
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: ''
+    name: '',
+    password: '',
   });
-  const [error, setError] = useState('');
-  const [user, setUser] = useState();
+  
+  const [notificationTitle, setNotificationTitle] = useState("");
+  const [notificationMsg, setNotificationMsg] = useState("");
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async(event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!formData.username || !formData.email || !formData.password) {
-      setError('Username, email, and password are required.');
+    if (!formData.name || !formData.password) {
+      alert("All fields are mandatory");
     } else {
-      setError('');
-      try{
-        await createUserWithEmailAndPassword(
-          auth,
-          formData.email,
-          formData.password
-        ).then(cred => {
-          const smt = cred.user.uid;
-          setDoc(doc(db, 'users', smt), {name : formData.username, email : formData.email, role : "test"})
-
+      await axios
+        .post('http://localhost:4000/users/create', formData)
+        .then((res) => {
+          console.log(res);
+          if (res.data === "Created!") {
+            setNotificationTitle('Success');
+            setNotificationMsg('Account created successfully!');
+            setTimeout(() => navigate('/login'), 2500); // Redirect after closing
+          } else {
+            setNotificationTitle("Error");
+            setNotificationMsg('An error occurred. Please try again.');
+          }
         })
-        }
-        catch(error){
-          console.log(error);
-        }
-      console.log(user);
-      
-      console.log('Signup form submitted with data:', formData);
-      navigate('/login');
+        .catch((err) => {
+          console.log("Error", err);
+          setNotificationTitle("Error");
+          setNotificationMsg('An error occurred. Please try again.');
+        });
     }
+    setTimeout(()=>setNotificationTitle(""), 2000)
   };
+
 
   return (
     <div className="signup-container">
       <h2>Sign Up</h2>
       <form className="signup-form" onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="username">Name:</label>
-          <input type="text" id="username" name="username" value={formData.username} onChange={handleInputChange} />
-        </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} />
+          <label htmlFor="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+          />
         </div>
         <div>
           <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" value={formData.password} onChange={handleInputChange} />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleInputChange}
+          />
         </div>
-        {error && <div className="error-message">{error}</div>}
         <button type="submit">Sign Up</button>
       </form>
+      {notificationTitle==="Error"?<Notification title={notificationTitle}  msg={notificationMsg} color={"danger"}/>:notificationTitle==="Success"&&<Notification title={notificationTitle} msg={notificationMsg} color={"success"}/>}
+      {notificationTitle}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.5.17;
 
 pragma experimental ABIEncoderV2; // Enable experimental ABIEncoderV2
 
@@ -13,6 +13,7 @@ contract Users {
     struct User {
         // User specified skills.
         uint[] skillIds;
+        
         // Skill id and endorsement id
         mapping(uint => string) endorsements;
     }

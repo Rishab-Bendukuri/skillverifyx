@@ -1,80 +1,87 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './LoginPage.css';
-import {onAuthStateChanged, signInWithEmailAndPassword} from "firebase/auth";
+import './SignUpPage.css';
+import {onAuthStateChanged, signInWithnameAndPassword} from "firebase/auth";
 import {auth} from '../../api/firebase-config';
+import axios from 'axios';
+import Notification from '../Notifications';
 
 const LoginPage = ({ onLogin, setUser, user }) => {
   const navigate = useNavigate();
-  const [failMessage, setFailMessage] = useState();
   const [formData, setFormData] = useState({
-    email: '',
+    name: '',
     password: ''
   });
-  const [error, setError] = useState('');
 
-  onAuthStateChanged(auth, (currentUser) => {
-    localStorage.setItem('user', JSON.stringify(currentUser));
-;
-    console.log(currentUser);
-    setUser(currentUser);
-  })
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
-  };
+  };  
+
+  const [notificationTitle, setNotificationTitle] = useState("");
+  const [notificationMsg, setNotificationMsg] = useState("");
+
 
   const handleLogin = async(event) => {
     event.preventDefault();
-    if (!formData.email || !formData.password) {
-      setError('Email and password are required.');
+    if (!formData.name || !formData.password) {
+      alert("All fields are mandatory");
     } else {
-      setError('');
-      try{
-        let ruser = await signInWithEmailAndPassword(
-          auth,
-          formData.email,
-          formData.password
-        )
-        console.log(ruser)
-        setUser(ruser)
-        const token = ruser;
-        onLogin(token);
-        navigate('/home');
+      await axios.post("http://localhost:4000/users/login",formData) 
+      .then((res)=>
+        {
+          if(res.data!=="Invalid credentials!")
+          {
+            localStorage.setItem("user", JSON.stringify(res.data.user))
+            setNotificationTitle('Success');
+            setNotificationMsg('Login successfull!');
+            onLogin(res.data.token)
+            setTimeout(() => navigate('/home'), 2500); // Redirect after closing
+          }
+          else {
+            setNotificationTitle("Invalid Credentials");
+            setNotificationMsg('Check Credentials');
+          }
         }
-        catch(error){
-          console.log(error);
-          setError("Invalid Credentials")
-          setFailMessage("Invalid Credentials")
-          setTimeout(() => {
-            setFormData({
-              email: '',
-              password: '',
-            });
-            setUser(null)
-            setError("")
-            setFailMessage('');
-          }, 10000);
-        }    
+      )
+      .catch((err)=>{
+        console.log(err);
+        setNotificationTitle("Error");
+        setNotificationMsg('An error occurred. Please try again.');
+      });
     }
+    setTimeout(()=>setNotificationTitle(""), 2000)
   };
 
   return (
-    <div className="login-container">
+    <div className="signup-container">
       <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} />
+
+      <form className="signup-form" onSubmit={handleLogin}>
+        <div>
+          <label htmlFor="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+          />
         </div>
-        <div className="form-group">
+        <div>
           <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" value={formData.password} onChange={handleInputChange} />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleInputChange}
+          />
         </div>
         <button type="submit">Login</button>
       </form>
-      {error && <div className="fail-message">{error}</div>}
+      {notificationTitle==="Error"?<Notification title={notificationTitle}  msg={notificationMsg} color={"danger"}/>:notificationTitle==="Success"&&<Notification title={notificationTitle} msg={notificationMsg} color={"success"}/>}
     </div>
   );
 };

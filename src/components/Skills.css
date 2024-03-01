@@ -28,5 +28,15 @@
     margin-right: 10px;
   }
 
+
+  .custom-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .custom-card:hover {
+    transform: translateY(-5px); /* Example: move card up by 5px */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Example: add shadow on hover */
+  }
+  
   
   
