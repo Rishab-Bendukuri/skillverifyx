@@ -17,6 +17,7 @@ const SignUpPage = () => {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
+    console.log(formData);
   };
 
   const handleSubmit = async (event) => {
@@ -70,6 +71,16 @@ const SignUpPage = () => {
             value={formData.password}
             onChange={handleInputChange}
           />
+        </div>
+        <div className='checkbox-container'>
+          <input
+            type='checkbox'
+            id='role'
+            name='role'
+            checked={formData.value}
+            onChange={handleInputChange}
+          />
+          <label htmlFor='role'>Request for Manager role</label>
         </div>
         <button type="submit">Sign Up</button>
       </form>

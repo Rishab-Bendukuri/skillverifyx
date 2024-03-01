@@ -31,6 +31,7 @@ const LoginPage = ({ onLogin, setUser, user }) => {
       await axios.post("http://localhost:4000/users/login",formData) 
       .then((res)=>
         {
+          console.log("Login data", res);
           if(res.data!=="Invalid credentials!")
           {
             localStorage.setItem("user", JSON.stringify(res.data.user))
