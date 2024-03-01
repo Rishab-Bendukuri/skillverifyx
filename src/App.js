@@ -8,6 +8,7 @@ import ViewUsers from './components/ViewUsers/ViewUsers';
 import CreateUser from './components/CreateUser/CreateUser';
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from './api/firebase-config';
+import NewSkills from './components/NewSkills';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -38,9 +39,10 @@ const App = () => {
   return (
     <>
       <Navbar isLoggedIn={isLoggedIn} onLogout={handleLogout} />
-      <ViewUsers/>
       <Routes>
         <Route path="/home" element={<HomePage  />} />
+        <Route path="/newskills" element={<NewSkills  />} />
+
         <Route path="/login" element={<LoginPage onLogin={handleLogin} setUser={setUser} user={user} />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/users" element={<ViewUsers />} />

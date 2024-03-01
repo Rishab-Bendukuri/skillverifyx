@@ -23,7 +23,8 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
         {isLoggedIn && (
           <li>
             <Link to="/">Home</Link>
-            <Link to="/endorse">Endorse</Link>
+            <Link to="/users">View Users</Link>
+            <Link to="/newskills">Skills</Link>
           </li>
         )}
         {!isLoggedIn && (
