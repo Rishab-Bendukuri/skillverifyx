@@ -18,4 +18,3 @@ entry.get("", (req, res) => res.send("Hello"))
 
 entry.use("/users", require("./routes/users"));
 entry.use("/certificate", require("./routes/certificate"));
-

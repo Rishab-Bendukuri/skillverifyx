@@ -4,12 +4,14 @@
 /node_modules
 /.pnp
 .pnp.js
+/skillVerifyX-back/node_modules
 
 # testing
 /coverage
 
 # production
 /build
+/skillVerifyX-back/build
 
 # misc
 .DS_Store
