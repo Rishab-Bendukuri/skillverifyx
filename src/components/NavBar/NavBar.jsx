@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './NavBar.css';
+
 const Navbar = ({ isLoggedIn, onLogout }) => {
   const navigate = useNavigate();
+
   const handleLogoutClick = () => {
     onLogout();
   };
@@ -17,30 +19,55 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
   }
 
   return (
-    <nav className="navbar">
-      <div className="logo" onClick={handleDefault}>Skill Verification System</div>
-      <ul className="nav-links">
-        {isLoggedIn && (
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-        )}
-        {!isLoggedIn && (
-          <>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/signup">Signup</Link>
-            </li>
-          </>
-        )}
-        {isLoggedIn && (
-          <li>
-            <button onClick={handleLogoutClick}>Logout</button>
-          </li>
-        )}
-      </ul>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div className="container">
+        <Link className="navbar-brand" to="/" onClick={handleDefault}>
+          Skill Verification System
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav ms-auto">
+            {isLoggedIn && (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/">Home</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/users">View Users</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/newskills">Skills</Link>
+                </li>
+              </>
+            )}
+            {!isLoggedIn && (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">Login</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/signup">Signup</Link>
+                </li>
+              </>
+            )}
+            {isLoggedIn && (
+              <li className="nav-item">
+                <button className="btn btn-outline-danger" onClick={handleLogoutClick}>Logout</button>
+              </li>
+            )}
+          </ul>
+        </div>
+      </div>
     </nav>
   );
 };

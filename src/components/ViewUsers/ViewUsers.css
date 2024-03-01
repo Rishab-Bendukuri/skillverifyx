@@ -1,0 +1,79 @@
+.view-users-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .user-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .user-card {
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: calc(33% - 20px); /* Adjust width for 3 columns */
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .user-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .user-card .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+  }
+  
+  .user-card .card-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .user-card .card-text {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+  
+  .user-card .btn-primary {
+    width: 100%;
+  }
+  
+
+  .custom-card {
+    background-color: #f8f9fa; /* Light background color */
+    border: 1px solid #dee2e6; /* Border color */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .custom-card:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Hover shadow effect */
+  }
+  
+  .card-title {
+    color: #343a40; /* Title text color */
+    font-weight: bold; /* Bold font weight */
+  }
+  
+  .card-text {
+    color: #6c757d; /* Text color */
+  }
+  
+  .btn-primary {
+    background-color: #007bff; /* Button background color */
+    border-color: #007bff; /* Button border color */
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3; /* Button hover background color */
+    border-color: #0056b3; /* Button hover border color */
+  }
+  

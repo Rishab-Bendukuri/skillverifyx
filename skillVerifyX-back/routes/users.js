@@ -1,3 +1,6 @@
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
+
 const exp = require("express");
 const users = exp.Router();
 const expressAsyncHandler = require("express-async-handler");
@@ -25,10 +28,11 @@ users.post(
     } else{
         var inserted = await request.app.get("users").insertOne({
           name: request.body.name,
-          password: await bcryptjs.hash(request.body.password, 4)
+          password: await bcryptjs.hash(request.body.password, 4),
+          role: request.body.role
         })
         if(inserted.acknowledged){
-          await AppUsers.createUser(inserted.insertedId.toString(), { from: "0xBC7B4B86C3EdA2E67767e19D8376Ff7D0ac5B119" })
+          await AppUsers.createUser(inserted.insertedId.toString(), { from: "0x67eA39E9B4EA99978E96359d8035085Fd50e5406" })
           response.send("Created!")
         }
         else{
@@ -44,10 +48,22 @@ users.get(
     const AppcontractsUsers = TruffleContract(require('../build/contracts/Users.json'));
     AppcontractsUsers.setProvider(web3.currentProvider);
     const AppUsers = await AppcontractsUsers.deployed();
-    const returnValue = await AppUsers.getUser.call(request.params.id,{ from: "0xBC7B4B86C3EdA2E67767e19D8376Ff7D0ac5B119" });
+    const returnValue = await AppUsers.getUser.call(request.params.id,{ from: "0x67eA39E9B4EA99978E96359d8035085Fd50e5406" });
+    console.log(returnValue, "Return");
     response.send(returnValue);
   })
 );
+
+users.get(
+  "/alluserids",
+  expressAsyncHandler(async (request, response) => {
+    const AppcontractsUsers = TruffleContract(require('../build/contracts/Users.json'));
+    AppcontractsUsers.setProvider(web3.currentProvider);
+    const AppUsers = await AppcontractsUsers.deployed();
+    const returnValue = await AppUsers.getAllUserIds.call({ from: "0x67eA39E9B4EA99978E96359d8035085Fd50e5406" });
+    response.send(returnValue);
+  })
+)
 
 users.post(
   "/endorse",
@@ -59,7 +75,7 @@ users.post(
     App.contracts.Users = TruffleContract(Users);
     App.contracts.Users.setProvider(App.web3Provider);
     App.Users = await App.contracts.Users.deployed();
-    await App.Users.addEndorsement(request.body.userId, request.body.skillId,request.body.endorseId, { from: "0xBC7B4B86C3EdA2E67767e19D8376Ff7D0ac5B119" })
+    await App.Users.addEndorsement(request.body.userId, request.body.skillId,request.body.endorseId, { from: "0x67eA39E9B4EA99978E96359d8035085Fd50e5406" })
     response.send("Done!")
   })
 );
@@ -69,10 +85,21 @@ users.post(
   expressAsyncHandler(async (request, response) => {
     const userDetails = await (await request.app.get("users")).findOne({name: request.body.name})
     if(await bcryptjs.compare(request.body.password, userDetails.password)){
-      response.send({token: jwt.sign({userId: userDetails._id.toString()}, 'secret', {expiresIn: 1000000})})
+      response.send({token: jwt.sign({userId: userDetails._id.toString()}, 'secret', {expiresIn: 1000000}), user: {name:request.body.name, userId: userDetails._id.toString(), role:userDetails.role}})
     } else{
       response.send("Invalid credentials!")
     }
+  })
+);
+
+
+users.get(
+  "/userbyid/:id",
+  expressAsyncHandler(async (request, response) => {
+    var o_id = new ObjectId(request.params.id)
+    const userDetails = await (await request.app.get("users")).findOne({_id: o_id})
+    console.log(userDetails, request.params)
+    response.send(userDetails);
   })
 );
 

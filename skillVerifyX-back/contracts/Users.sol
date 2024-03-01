@@ -1,4 +1,4 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.5.16;
 
 pragma experimental ABIEncoderV2; // Enable experimental ABIEncoderV2
 
@@ -18,6 +18,7 @@ contract Users {
     }
 
     mapping(string => User) users;
+    string[] userIds;
 
     constructor() public {}
 
@@ -37,9 +38,14 @@ contract Users {
         return (userSkills, userEndorsements);
     }
 
+    function getAllUserIds() public view returns(string[] memory){
+        return userIds;
+    }
+
     function createUser(string memory _id) public {
         UsersCount++;
         users[_id] = User(new uint[](0));
+        userIds.push(_id);
     }
 
     function addEndorsement(string memory _id, uint _skillId, string memory _endorsementId) public {
