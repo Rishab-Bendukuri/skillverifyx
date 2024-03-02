@@ -2226,12 +2226,13 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xa8dfF1a0b31Dcb5C687CFC8f8d03BF3DDB89Be02",
-      "transactionHash": "0x7ab1cbc10e26f2064a32c9a5ab97dcdaa34a3e965ea603e47b86b7d2804bb7bc"
+      "address": "0x6668a76a0672c22506BB8DBaeC20B12f430aBC55",
+      "transactionHash": "0x1a29b6aaabc878f38a2a45458d6e2078199d16fc3359b1ee533d3ae2fb9c6b8e"
     }
   },
-  "schemaVersion": "3.0.1",
-  "updatedAt": "2024-03-02T03:22:51.879Z",
+  "schemaVersion": "3.4.16",
+  "updatedAt": "2024-03-01T18:20:08.391Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {}
   },

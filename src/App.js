@@ -19,6 +19,7 @@ import axios from "axios";
 import Notification from "./components/Notifications";
 import Writing from "./components/Writing/Writing";
 import SolveQuery from "./components/SolveQuery/SolveQuery";
+import MySkills from './components/MySkills';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -52,6 +53,7 @@ const App = () => {
       <Routes>
         <Route path="/home" element={<HomePage />} />
         <Route path="/newskills" element={<NewSkills />} />
+        <Route path="/myskills" element={<MySkills/>}/>        
         <Route path="/login" element={<LoginPage onLogin={handleLogin} setUser={setUser} user={user} />}/>
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/users" element={<ViewUsers />} />

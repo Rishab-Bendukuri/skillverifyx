@@ -4328,12 +4328,13 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xa8e018F78BAEBAdE9ABcf2000aEC84B86Fce4f87",
-      "transactionHash": "0x49377180cb3136f1a27ba1f43a0107e8713b32d06aa1794f6d0965277d246977"
+      "address": "0xe72bD2917e4484701C80f52Fa873DF685c7ab773",
+      "transactionHash": "0x1f6e9bba84cdea907860bec5b0544f26985218d066a2a964c3073d913eaef342"
     }
   },
-  "schemaVersion": "3.0.1",
-  "updatedAt": "2024-03-02T03:22:51.882Z",
+  "schemaVersion": "3.4.16",
+  "updatedAt": "2024-03-01T18:20:08.386Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {}
   },

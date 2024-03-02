@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, json, useNavigate } from 'react-router-dom';
 import './NavBar.css';
 
 const Navbar = ({ isLoggedIn, onLogout }) => {
@@ -39,14 +39,21 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
           <ul className="navbar-nav ms-auto">
             {isLoggedIn && (
               <>
+                <h3>
+                  Hi {JSON.parse(localStorage.getItem("user")).name}</h3>
                 <li className="nav-item">
                   <Link className="nav-link" to="/">Home</Link>
                 </li>
+                {
+                  JSON.parse(localStorage.getItem("user")).role=="on"&&
                 <li className="nav-item">
                   <Link className="nav-link" to="/users">View Users</Link>
-                </li>
+                </li>}
                 <li className="nav-item">
                   <Link className="nav-link" to="/newskills">Skills</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/myskills">My Skills</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/writing">Writing</Link>
