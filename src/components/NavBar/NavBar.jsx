@@ -48,6 +48,12 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
                 <li className="nav-item">
                   <Link className="nav-link" to="/newskills">Skills</Link>
                 </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/writing">Writing</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/queries">Ask queries</Link>
+                </li>
               </>
             )}
             {!isLoggedIn && (

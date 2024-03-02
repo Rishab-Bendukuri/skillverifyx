@@ -319,8 +319,14 @@ function NewSkills() {
     setData(fetchedData.skills);
   }, []);
 
-  const handleCardClick = (skill, index) => {
+  const handleCardClick = async (skill, index) => {
     setSelectedSkill(skill);
+    console.log(skill)
+    skill = await axios.post("http://localhost:5000/genai/getQuestionSkill", {
+      skill: skill.skillname,
+      questions: 10
+    })
+    setSelectedSkill(skill.data)
     setSkillId(index);
     setShowConfirmation(true);
   };

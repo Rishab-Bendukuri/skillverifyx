@@ -17,6 +17,8 @@ import { auth } from "./api/firebase-config";
 import NewSkills from "./components/NewSkills";
 import axios from "axios";
 import Notification from "./components/Notifications";
+import Writing from "./components/Writing/Writing";
+import SolveQuery from "./components/SolveQuery/SolveQuery";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -54,6 +56,8 @@ const App = () => {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/users" element={<ViewUsers />} />
         <Route path="/createuser" element={<CreateUser />} />
+        <Route path="/writing" element={<Writing/>} />
+        <Route path="/queries" element={<SolveQuery/>} />
       </Routes>
     </React.Fragment>
   );

@@ -3,8 +3,10 @@ from writing_assessment.generateQuestion import get_qsn
 from writing_assessment.getScore import get_score
 from chatbot.main import get_ans
 from generate_qa.generate_qa import generate_multiple_choice_question
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/genai/evaluate', methods=['POST'])
 def evaluate():

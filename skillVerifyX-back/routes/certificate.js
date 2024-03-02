@@ -15,7 +15,7 @@ certificates.post(
     var AppcontractsCertificates = TruffleContract(require('../build/contracts/Certificates.json'));
     AppcontractsCertificates.setProvider(web3.currentProvider);
     var AppCertificates = await AppcontractsCertificates.deployed();
-    await AppCertificates.addSkill(request.body.userId, request.body.skillId, { from: "0x67eA39E9B4EA99978E96359d8035085Fd50e5406" })
+    await AppCertificates.addSkill(request.body.userId, request.body.skillId, { from: "0xBC7B4B86C3EdA2E67767e19D8376Ff7D0ac5B119" })
     response.send("Done!")
   })
 );
@@ -26,7 +26,7 @@ certificates.get(
     const AppcontractsCertificates = TruffleContract(require('../build/contracts/Certificates.json'));
     AppcontractsCertificates.setProvider(web3.currentProvider);
     const AppCertificates = await AppcontractsCertificates.deployed();
-    const returnValue = await AppCertificates.verifyCertificate.call(request.params.userId, request.params.skillId, { from: "0x67eA39E9B4EA99978E96359d8035085Fd50e5406" });
+    const returnValue = await AppCertificates.verifyCertificate.call(request.params.userId, request.params.skillId, { from: "0xBC7B4B86C3EdA2E67767e19D8376Ff7D0ac5B119" });
     response.send(returnValue ? "Valid" : "Invalid");
   })
 );

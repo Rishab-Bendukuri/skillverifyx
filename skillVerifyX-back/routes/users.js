@@ -31,13 +31,8 @@ users.post(
           password: await bcryptjs.hash(request.body.password, 4),
           role: request.body.role
         })
-        if(inserted.acknowledged){
-          await AppUsers.createUser(inserted.insertedId.toString(), { from: "0x67eA39E9B4EA99978E96359d8035085Fd50e5406" })
-          response.send("Created!")
-        }
-        else{
-          response.send("Error creating user!")
-        }
+        await AppUsers.createUser(inserted.insertedId.toString(), { from: "0xBC7B4B86C3EdA2E67767e19D8376Ff7D0ac5B119" })
+        response.send("Created!")
     }
   })
 );
@@ -48,7 +43,7 @@ users.get(
     const AppcontractsUsers = TruffleContract(require('../build/contracts/Users.json'));
     AppcontractsUsers.setProvider(web3.currentProvider);
     const AppUsers = await AppcontractsUsers.deployed();
-    const returnValue = await AppUsers.getUser.call(request.params.id,{ from: "0x67eA39E9B4EA99978E96359d8035085Fd50e5406" });
+    const returnValue = await AppUsers.getUser.call(request.params.id,{ from: "0xBC7B4B86C3EdA2E67767e19D8376Ff7D0ac5B119" });
     console.log(returnValue, "Return");
     response.send(returnValue);
   })
@@ -60,7 +55,7 @@ users.get(
     const AppcontractsUsers = TruffleContract(require('../build/contracts/Users.json'));
     AppcontractsUsers.setProvider(web3.currentProvider);
     const AppUsers = await AppcontractsUsers.deployed();
-    const returnValue = await AppUsers.getAllUserIds.call({ from: "0x67eA39E9B4EA99978E96359d8035085Fd50e5406" });
+    const returnValue = await AppUsers.getAllUserIds.call({ from: "0xBC7B4B86C3EdA2E67767e19D8376Ff7D0ac5B119" });
     response.send(returnValue);
   })
 )
@@ -75,7 +70,7 @@ users.post(
     App.contracts.Users = TruffleContract(Users);
     App.contracts.Users.setProvider(App.web3Provider);
     App.Users = await App.contracts.Users.deployed();
-    await App.Users.addEndorsement(request.body.userId, request.body.skillId,request.body.endorseId, { from: "0x67eA39E9B4EA99978E96359d8035085Fd50e5406" })
+    await App.Users.addEndorsement(request.body.userId, request.body.skillId,request.body.endorseId, { from: "0xBC7B4B86C3EdA2E67767e19D8376Ff7D0ac5B119" })
     response.send("Done!")
   })
 );
