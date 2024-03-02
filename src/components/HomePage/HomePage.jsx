@@ -16,7 +16,7 @@ const HomePage = () => {
 
   return (
     <div className="home-page-container">
-      <h1>Welcome, {user.name}!</h1>
+      {user&&<h1>Welcome, {user.name}</h1>}
       <p>This is your home page for the skill verification system.</p>
       <p>Here, you can access various features related to skill verification.</p>
     </div>

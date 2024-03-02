@@ -11,6 +11,7 @@ import { auth } from './api/firebase-config';
 import NewSkills from './components/NewSkills';
 import axios from 'axios';
 import Notification from './components/Notifications';
+import MySkills from './components/MySkills';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -45,7 +46,7 @@ const App = () => {
       <Routes>
         <Route path="/home" element={<HomePage  />} />
         <Route path="/newskills" element={<NewSkills  />} />
-
+        <Route path="/myskills" element={<MySkills/>}/>
         <Route path="/login" element={<LoginPage onLogin={handleLogin} setUser={setUser} user={user} />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/users" element={<ViewUsers />} />
