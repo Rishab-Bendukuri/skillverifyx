@@ -301,7 +301,7 @@ const fetchedData = {
       topicsIncluded: ["Cryptocurrency", "Smart Contracts", "Consensus Mechanisms"]
     }
   ]
-};            
+};
 
 
 function NewSkills() {
@@ -323,13 +323,13 @@ function NewSkills() {
   const handleCardClick = async (skill, index) => {
     setSelectedSkill(skill);
     console.log(skill)
-    // setGeneratingQsns(true)
-    // skill = await axios.post("http://localhost:5000/genai/getQuestionSkill", {
-    //   skill: skill.skillname,
-    //   questions: 10
-    // })
-    // setGeneratingQsns(false)
-    // setSelectedSkill(skill.data)
+    setGeneratingQsns(true)
+    skill = await axios.post("http://localhost:5000/genai/getQuestionSkill", {
+      skill: skill.skillname,
+      questions: 10
+    })
+    setGeneratingQsns(false)
+    setSelectedSkill(skill.data)
     setSkillId(index);
     setShowConfirmation(true);
   };
