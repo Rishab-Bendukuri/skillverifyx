@@ -22,7 +22,7 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
         <Link className="navbar-brand" to="/" onClick={handleDefault}>
-          Skill Verification System
+          SkillVerifyX
         </Link>
         <button
           className="navbar-toggler"
@@ -41,9 +41,9 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
               <>
                 <h3>
                   Hi {JSON.parse(localStorage.getItem("user")).name}</h3>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link className="nav-link" to="/">Home</Link>
-                </li>
+                </li> */}
                 {
                   JSON.parse(localStorage.getItem("user")).role=="on"&&
                 <li className="nav-item">

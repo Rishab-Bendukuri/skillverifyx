@@ -24,7 +24,7 @@ function Writing() {
   return start ? <div className='d-flex flex-column justify-content-center'>
     {
       score == "" ? <React.Fragment>        
-        <h5 className='text-center mt-4'>Question: {question}</h5>
+        <h5 className='text-center mt-4'>Question: {question!="" ? question : "Loading question..."}</h5>
         <textarea value={answer} rows={10} cols={100} onChange={(e)=>setAnswer(e.target.value)} className='mx-auto' type="text" />
         <button className='mt-4 rounded' style={{
           width: "100px",

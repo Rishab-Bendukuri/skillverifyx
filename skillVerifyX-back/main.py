@@ -28,7 +28,12 @@ def getQuestion():
     questions = []
     if request.method == 'POST':
         for _ in range(request.json["questions"]):
-            questions.append(generate_multiple_choice_question(request.json["skill"]))
+            questions.append(
+                generate_multiple_choice_question(
+                    request.json["skill"], 
+                    "".join([str(i)+". "+q['question'] for i, q in enumerate(questions)])
+                )
+            )
         return {"questions": questions}
 
 if __name__ == '__main__':

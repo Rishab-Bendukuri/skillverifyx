@@ -38,7 +38,7 @@ const LoginPage = ({ onLogin, setUser, user }) => {
             setNotificationTitle('Success');
             setNotificationMsg('Login successfull!');
             onLogin(res.data.token)
-            setTimeout(() => navigate('/home'), 2500); // Redirect after closing
+            setTimeout(() => navigate('/'), 2500); // Redirect after closing
           }
           else {
             setNotificationTitle("Invalid Credentials");
@@ -56,7 +56,7 @@ const LoginPage = ({ onLogin, setUser, user }) => {
   };
 
   return (
-    <div className="signup-container">
+    <div className="signup-container mt-4">
       <h2>Login</h2>
 
       <form className="signup-form" onSubmit={handleLogin}>

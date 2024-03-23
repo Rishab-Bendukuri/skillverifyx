@@ -49,7 +49,7 @@ const SignUpPage = () => {
 
 
   return (
-    <div className="signup-container">
+    <div className="signup-container mt-4">
       <h2>Sign Up</h2>
       <form className="signup-form" onSubmit={handleSubmit}>
         <div>

@@ -9,6 +9,7 @@ import { fetchedData } from '../QuizData';
 const ViewUsers = () => {
   const [users, setUsers] = useState([]);
   const usersCollectionRef = collection(db, "users");
+  const [loading, setLoading] = useState(true)
 
   const getUsers = async () => {
     const userData = await axios.get("http://localhost:4000/users/alluserids");
@@ -37,7 +38,8 @@ const ViewUsers = () => {
       // console.log("DFSF", allUsers);
     })
 
-    setTimeout(()=>        setUsers(allUsers),2000)
+    setTimeout(()=>{setLoading(false) 
+      setUsers(allUsers)},2000)
     setTimeout(()=>console.log("ALLUSERS", users), 3000);
   };
 
@@ -53,7 +55,7 @@ const ViewUsers = () => {
   };
 
   const filteredUsers = users.filter(user =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase())
+    user?.name?.toLowerCase().includes(searchTerm?.toLowerCase())
   );
 
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -77,7 +79,12 @@ const ViewUsers = () => {
           onChange={handleSearchChange}
         />
       </Form.Group>
-      <div className="user-cards">
+      {
+        loading &&
+        <div>Loading...</div>
+      }
+      <br/>
+      <div className="user-cards justify-content-start gap-3">
         {filteredUsers.filter(user => user.name !== JSON.parse(localStorage.getItem("user")).name).map((user, index) => (
           <div key={index} className="col-lg-3 col-md-6 mb-4">
           <Card className="custom-card">
@@ -105,13 +112,14 @@ const ViewUsers = () => {
             {
               return(
                 <>
+                <br/>
                 <Card className='card p-2'>
-                    <CardTitle>{fetchedData.skills[parseInt(value)].skillname} -gp {value} </CardTitle>
+                    <CardTitle>{fetchedData.skills[parseInt(value)].skillname}</CardTitle>
                     <CardBody className='ms-0'>
-                    {value}
+                    {/* {value} */}
                     {modalData.endorsedSkills.some(endorsement => endorsement == parseInt(value))}
                     {modalData.endorsedSkills.some(endorsement => endorsement == parseInt(value))?
-                        <p>Endorsed By{modalData.endorsements[modalData.endorsedSkills.indexOf(value.toString())]}</p>:
+                        <p>Endorsed By: {modalData.endorsements[modalData.endorsedSkills.indexOf(value.toString())]}</p>:
                      
                       <Button className='button' onClick={() => handleEndorsement(modalData, value)}>Endorse skills</Button>
                     }

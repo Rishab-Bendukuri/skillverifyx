@@ -8,17 +8,28 @@ function SolveQuery() {
   });
   const [db, setDb] = useState("python")
   const [accept, setAccept] = useState(true)
+  const [processingQuery, setProcessingQuery] = useState(false)
 
   async function getAns(query){
-    return (await axios.post("http://localhost:5000/genai/kbq", {
+    setProcessingQuery(true)
+    const res = (await axios.post("http://localhost:5000/genai/kbq", {
         query: query,
         db: db
     })).data
+    setProcessingQuery(false)
+    return res
   }
 
   const [query, setQuery] = useState("")
 
   return <div>
+    
+    {
+        processingQuery && 
+        <div className="left-float bg-success p-3 rounded text-white fw-bolder">
+          Processing query...
+        </div>
+      }
     <div id="ChatWindow" className="p-4">
         {
             chat.data.map((e, i)=>

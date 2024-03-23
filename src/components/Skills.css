@@ -38,5 +38,10 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Example: add shadow on hover */
   }
   
+  .left-float{
+    position: fixed;
+    right: 3rem;
+    z-index: 1;
+  }
   
   

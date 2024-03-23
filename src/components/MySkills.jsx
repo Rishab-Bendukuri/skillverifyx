@@ -9,13 +9,13 @@ function MySkills(){
     const skillnames = ["Machine Learning", "Cloud Computing", "MERN Stack","Spring Boot","Blockchain",]
 
     const [userData, setUserData] = useState()
+    const [loading, setLoading] = useState(true)
     useEffect(()=>{
         let data;
         const getUserData = async()=>{
-        data = await axios.get(`http://localhost:4000/users/user/${JSON.parse(localStorage.getItem("user")).userId}`);
-        console.log("data",data.data);
-    
-    }
+            data = await axios.get(`http://localhost:4000/users/user/${JSON.parse(localStorage.getItem("user")).userId}`);
+            console.log("data",data.data);
+        }
 
         getUserData();
         setTimeout(()=>setUserData(data.data), 2000);
@@ -32,11 +32,20 @@ function MySkills(){
             console.log(certi, "certi")
             }
         })
-        setTimeout(()=>setCertIds(certi), 2000);
+        setTimeout(()=>{            
+            setLoading(false)
+            setCertIds(certi)
+        }, 2000);
     }, [])
 
     return(
-        <>
+        <div className="m-4">
+            {
+                loading && <div>Loading...</div>
+            }
+            {
+                !loading && certIds.length == 0 && <div>No skills found!</div>
+            }
             {certIds.map(
                 (value, index)=>
                      <>
@@ -63,7 +72,10 @@ function MySkills(){
                             <Card.Title>{fetchedData.skills[value].skillname}</Card.Title>
                             <Card.Subtitle className="mb-2">Topics Covered:</Card.Subtitle>
                             <Card.Text>{fetchedData.skills[value].topicsIncluded.join(", ")}</Card.Text>
-                            <Card.Text>Endorsed by {userData[1][userData[0].indexOf(value.toString())]}</Card.Text>
+                            {
+                                console.log(userData[1][userData[0].indexOf(value.toString())]==undefined)
+                            }
+                            <Card.Text>Endorsed by:<br/> {userData[1][userData[0].indexOf(value.toString())]!=undefined?userData[1][userData[0].indexOf(value.toString())]:"No endorsements"}</Card.Text>
                         </Card.Body>
                     </Card>
 
@@ -86,7 +98,7 @@ function MySkills(){
                 </Card>
                 
           ))} */}
-        </>
+        </div>
     )
 }
 

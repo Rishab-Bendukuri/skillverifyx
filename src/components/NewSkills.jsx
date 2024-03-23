@@ -313,6 +313,7 @@ function NewSkills() {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [cancel, setCancel] = useState(false);
   const [skillId, setSkillId] = useState(0);
+  const [generatingQsns, setGeneratingQsns] = useState(false)
 
   useEffect(() => {
     // Simulate fetching data from an API (replace with actual API call)
@@ -322,11 +323,13 @@ function NewSkills() {
   const handleCardClick = async (skill, index) => {
     setSelectedSkill(skill);
     console.log(skill)
-    skill = await axios.post("http://localhost:5000/genai/getQuestionSkill", {
-      skill: skill.skillname,
-      questions: 10
-    })
-    setSelectedSkill(skill.data)
+    // setGeneratingQsns(true)
+    // skill = await axios.post("http://localhost:5000/genai/getQuestionSkill", {
+    //   skill: skill.skillname,
+    //   questions: 10
+    // })
+    // setGeneratingQsns(false)
+    // setSelectedSkill(skill.data)
     setSkillId(index);
     setShowConfirmation(true);
   };
@@ -398,6 +401,13 @@ function NewSkills() {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      {
+        generatingQsns && 
+        <div className="left-float bg-success p-3 rounded text-white fw-bolder">
+          Generating questions...
+        </div>
+      }
 
       {(selectedSkill&&cancel) && !showConfirmation ? (
         <div className="quiz-content">

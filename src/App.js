@@ -51,7 +51,7 @@ const App = () => {
     <React.Fragment>
       <Navbar isLoggedIn={isLoggedIn} onLogout={handleLogout} />
       <Routes>
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/newskills" element={<NewSkills />} />
         <Route path="/myskills" element={<MySkills/>}/>        
         <Route path="/login" element={<LoginPage onLogin={handleLogin} setUser={setUser} user={user} />}/>

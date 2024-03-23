@@ -41,10 +41,13 @@ users.get(
   "/user/:id",
   expressAsyncHandler(async (request, response) => {
     const AppcontractsUsers = TruffleContract(require('../build/contracts/Users.json'));
+    // console.log("1")
     AppcontractsUsers.setProvider(web3.currentProvider);
+    // console.log("2")
     const AppUsers = await AppcontractsUsers.deployed();
+    // console.log("3")
     const returnValue = await AppUsers.getUser.call(request.params.id,{ from: "0xBC7B4B86C3EdA2E67767e19D8376Ff7D0ac5B119" });
-    console.log(returnValue, "Return");
+    // console.log(returnValue, "Return");
     response.send(returnValue);
   })
 );
@@ -70,7 +73,8 @@ users.post(
     App.contracts.Users = TruffleContract(Users);
     App.contracts.Users.setProvider(App.web3Provider);
     App.Users = await App.contracts.Users.deployed();
-    await App.Users.addEndorsement(request.body.userId, request.body.skillId,request.body.endorseId, { from: "0xBC7B4B86C3EdA2E67767e19D8376Ff7D0ac5B119" })
+    const res = await App.Users.addEndorsement(request.body.userId, request.body.skillId,request.body.endorseId, { from: "0xBC7B4B86C3EdA2E67767e19D8376Ff7D0ac5B119" })
+    console.log(res)
     response.send("Done!")
   })
 );
@@ -93,7 +97,7 @@ users.get(
   expressAsyncHandler(async (request, response) => {
     var o_id = new ObjectId(request.params.id)
     const userDetails = await (await request.app.get("users")).findOne({_id: o_id})
-    console.log(userDetails, request.params)
+    // console.log(userDetails, request.params)
     response.send(userDetails);
   })
 );
